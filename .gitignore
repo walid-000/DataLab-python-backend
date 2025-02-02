@@ -1,0 +1,34 @@
+# Python bytecode files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual environment folder
+.env
+.venv
+
+# Pipenv lock file (optional, but it's helpful to track the exact dependencies)
+Pipfile.lock
+
+# IDE/editor files (optional, add according to your IDE)
+.vscode/
+.idea/
+
+# Linux system files
+*~
+*.swp
+*.swo
+*.bak
+
+# MacOS files (optional, keep if working cross-platform)
+.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Windows editor backup files
+*~
+*.bak
