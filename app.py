@@ -19,56 +19,29 @@ def cluster_data():
     result = perform_kmeans_clustering(points, n_clusters)
     return jsonify(result)
 
-@app.route('/apriori', methods=['POST'])
-def apply_apriori_route():
-    data = request.get_json()
-
-    # data = reqdata['data']
-
-    df = pd.DataFrame(data)
-
-    frequent_itemsets, rules = apply_apriori(df)
-
-    result = {
-        'frequent_itemsets': frequent_itemsets.to_dict(orient='records'),
-        'association_rules': rules.to_dict(orient='records')
-    }
-
-    return jsonify(result)
-
-@app.route("/" , methods=['GET'])
-def root():
-    result = {
-        "message" : "Hello World !"
-    }
-
-    return jsonify(result)
-
-
-@app.route("/hello" , methods=['POST'])
-def test():
-    try :
-        reqdata = request.get_json()
-        data = reqdata['data']
-        print(data)
-        df = pd.DataFrame(data)
-
-        # Apply apriori algorithm
-        frequent_itemsets = apriori(df, min_support=0.5, use_colnames=True)
-
-        # Generate association rules
-        rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1)
-
-        # Return the result as JSON
-        result = rules.to_json(orient="records")
-        print(result)
-        return jsonify(result)
-
-    except Exception as e:
-        print("error :" , str(e))
-        return jsonify({"error": str(e)})
-
  
+@app.route('/apriori' , methods=['POST'])
+def apriori_route(): 
+    reqdata = request.get_json()
+    data = reqdata['data']
+    print("data" , data)
+    frequent_itemsets, rules = apply_apriori(data, min_support=0.5, lift_threshold=1.0)
+    print(rules)
+    print(frequent_itemsets)
+    
+
+    
+    # Convert the results to dictionaries for JSON response
+    result = {
+        'frequent_itemsets': frequent_itemsets ,
+        'association_rules': rules
+    }
+
+    # Return the result as a JSON response
+    return jsonify(result)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
+app

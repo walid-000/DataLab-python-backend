@@ -32,3 +32,6 @@ Desktop.ini
 # Windows editor backup files
 *~
 *.bak
+
+#files
+basuic.py
